@@ -13,7 +13,7 @@ Developer portfolio for **Quamdeen Olajide**.
 | Icons | Lucide React | 0.562.0 |
 | Utilities | clsx, tailwind-merge, class-variance-authority | — |
 | State | Zustand | 5.0.10 |
-| Motion | Framer Motion | 12.0.0 |
+| Motion | Motion (Framer Motion) | latest |
 
 ## Project Structure
 
@@ -83,6 +83,29 @@ Developer portfolio for **Quamdeen Olajide**.
 - [x] `/projects` — Projects
 - [x] `/contact` — Contact
 
+## Completed (Phase 2–4)
+
+### Home Page (`/`)
+- [x] Hero section with locked copy
+- [x] Primary headline: "DEEN DYNAMICS" (uppercase, tracked)
+- [x] Secondary line: "Quamdeen Olajide — Full-Stack Software Engineer"
+- [x] Supporting statement about building production-ready, agentic systems
+- [x] Subtext: "Thoughtful engineering. Real users. Responsible impact."
+- [x] CTA: "View Projects" → `/projects`
+- [x] CTA: "Resume" → `/resume.pdf`
+- [x] Staggered fade-up animations with Motion
+
+### About Page (`/about`)
+- [x] About section with locked copy (4 paragraphs)
+- [x] Internal links to `/projects` and `/contact`
+- [x] Medium writing link with external icon
+- [x] Experience section with 3 entries:
+  - Refilgas — Software Development Engineering Intern (Jan 2026 – Present)
+  - Headstarter — Software Development Engineering Resident (June 2025 – Present)
+  - CodePath — Software Development Engineering Fellow (May 2025 – Aug 2025)
+- [x] Clean hierarchy: Company → Role → Location/Dates → Bullets
+- [x] Staggered fade-up animations with Motion
+
 ## Getting Started
 
 ```bash
@@ -100,10 +123,10 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## Next Steps
 
-- [ ] Hero section content
-- [ ] About + Experience section
+- [x] ~~Hero section content~~
+- [x] ~~About + Experience section~~
 - [ ] Projects section with cards
-- [ ] Contact form
+- [ ] Contact form with Resend integration
 
 ---
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Linkedin } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,7 +19,7 @@ export function Footer() {
             className="text-[var(--color-foreground-muted)] transition-colors duration-[var(--duration-hover)] hover:text-[var(--color-foreground)]"
             aria-label="GitHub"
           >
-            <Github className="h-5 w-5" />
+            <FaGithub className="h-5 w-5" />
           </Link>
           <Link
             href="https://www.linkedin.com/in/quamdeen-olajide/"
@@ -28,7 +28,7 @@ export function Footer() {
             className="text-[var(--color-foreground-muted)] transition-colors duration-[var(--duration-hover)] hover:text-[var(--color-foreground)]"
             aria-label="LinkedIn"
           >
-            <Linkedin className="h-5 w-5" />
+            <FaLinkedin className="h-5 w-5" />
           </Link>
         </div>
       </div>

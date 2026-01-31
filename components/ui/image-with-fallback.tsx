@@ -13,6 +13,7 @@ export function ImageWithFallback({
   alt,
   fallbackText = "Image coming soon",
   className,
+  fill,
   ...props
 }: ImageWithFallbackProps) {
   const [hasError, setHasError] = useState(false);
@@ -21,10 +22,11 @@ export function ImageWithFallback({
     return (
       <div
         className={cn(
-          "flex items-center justify-center bg-background-tertiary border border-border text-foreground-subtle text-sm",
+          "flex items-center justify-center bg-[var(--color-background-tertiary)] border border-[var(--color-border)] text-[var(--color-foreground-subtle)] text-sm",
+          fill && "absolute inset-0",
           className
         )}
-        style={{ width: props.width, height: props.height }}
+        style={!fill ? { width: props.width, height: props.height } : undefined}
       >
         {fallbackText}
       </div>
@@ -36,6 +38,7 @@ export function ImageWithFallback({
       src={src}
       alt={alt}
       className={className}
+      fill={fill}
       onError={() => setHasError(true)}
       {...props}
     />

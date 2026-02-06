@@ -93,7 +93,7 @@ const projects: Project[] = [
     status: "completed",
     description:
       "A terminal-based AI coding assistant that helps developers write, debug, and refactor code directly from the command line. Designed for efficiency and minimal context switching.",
-    techStack: ["Python", "Bash"],
+    techStack: ["Bash", "TypeScript", "Gemini API"],
     githubUrl: "https://github.com/QOOlajide/terminal-coding-agent",
     demoUrl: undefined,
   },

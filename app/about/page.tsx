@@ -11,7 +11,7 @@ const fadeUp = {
 
 const transition = {
   duration: 0.6,
-  ease: [0.4, 0, 0.2, 1],
+  ease: [0.4, 0, 0.2, 1] as const,
 };
 
 const experiences = [
@@ -174,6 +174,51 @@ export default function AboutPage() {
                 </ul>
               </motion.article>
             ))}
+          </div>
+        </section>
+
+        {/* Education Section */}
+        <section className="flex flex-col gap-10">
+          <motion.h2
+            variants={fadeUp}
+            transition={{ ...transition, delay: 0.7 }}
+            className="text-2xl font-medium tracking-tight text-center text-[var(--color-foreground)] sm:text-3xl"
+          >
+            Education
+          </motion.h2>
+
+          <div className="flex flex-col gap-8">
+            <motion.div
+              variants={fadeUp}
+              transition={{ ...transition, delay: 0.8 }}
+              className="flex flex-col gap-1"
+            >
+              <h3 className="text-lg font-semibold text-[var(--color-foreground)]">
+                CUNY School of Professional Studies
+              </h3>
+              <p className="text-base text-[var(--color-foreground-muted)]">
+                B.S. Information Science · Dean&apos;s List
+              </p>
+              <p className="text-sm text-[var(--color-foreground-subtle)]">
+                May 2024 – Dec 2026
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ ...transition, delay: 0.9 }}
+              className="flex flex-col gap-1"
+            >
+              <h3 className="text-lg font-semibold text-[var(--color-foreground)]">
+                Brooklyn College
+              </h3>
+              <p className="text-base text-[var(--color-foreground-muted)]">
+                B.S. Computer Science · Dean&apos;s List
+              </p>
+              <p className="text-sm text-[var(--color-foreground-subtle)]">
+                2023 – 2024
+              </p>
+            </motion.div>
           </div>
         </section>
       </motion.div>

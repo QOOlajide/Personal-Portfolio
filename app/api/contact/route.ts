@@ -38,7 +38,7 @@ function validateEmail(email: string): boolean {
 }
 
 function validatePhone(phone: string): boolean {
-  if (!phone) return true; // Phone is optional
+  if (!phone) return true;
   const phoneRegex = /^[\d\s\-+()]{7,20}$/;
   return phoneRegex.test(phone);
 }
@@ -90,24 +90,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check environment variables
-    const toEmail = process.env.CONTACT_TO_EMAIL;
-    const fromEmail = process.env.CONTACT_FROM_EMAIL;
-
-    if (!toEmail || !fromEmail) {
-      console.error("Missing email configuration");
+    // Check API key
+    if (!process.env.RESEND_API_KEY) {
+      console.error("Missing RESEND_API_KEY");
       return NextResponse.json(
         { success: false, errors: ["Server configuration error"] },
         { status: 500 }
       );
     }
 
+    // Email config with defaults
+    const toEmail = process.env.CONTACT_TO_EMAIL || "quamola@gmail.com";
+    const fromEmail =
+      process.env.CONTACT_FROM_EMAIL || "Deen Dynamics <onboarding@resend.dev>";
+
     // Send email via Resend
     const timestamp = new Date().toISOString();
 
-    const { error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: fromEmail,
-      to: toEmail,
+      to: [toEmail],
       subject: `Portfolio Contact: ${name.trim()}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -153,7 +155,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error("Contact API error:", error);
     return NextResponse.json(

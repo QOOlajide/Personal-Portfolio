@@ -62,7 +62,7 @@ export default function AboutPage() {
           <motion.h1
             variants={fadeUp}
             transition={{ ...transition, delay: 0 }}
-            className="text-3xl font-medium tracking-tight text-[var(--color-foreground)] sm:text-4xl"
+            className="text-3xl font-medium tracking-tight text-center text-[var(--color-foreground)] sm:text-4xl"
           >
             About
           </motion.h1>
@@ -135,7 +135,7 @@ export default function AboutPage() {
           <motion.h2
             variants={fadeUp}
             transition={{ ...transition, delay: 0.3 }}
-            className="text-2xl font-medium tracking-tight text-[var(--color-foreground)] sm:text-3xl"
+            className="text-2xl font-medium tracking-tight text-center text-[var(--color-foreground)] sm:text-3xl"
           >
             Experience
           </motion.h2>

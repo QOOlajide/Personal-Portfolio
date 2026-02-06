@@ -118,7 +118,7 @@ export default function ContactPage() {
         className="flex flex-col gap-12"
       >
         {/* Header */}
-        <motion.div variants={fadeUp} transition={transition}>
+        <motion.div variants={fadeUp} transition={transition} className="text-center">
           <h1 className="text-3xl font-medium tracking-tight text-[var(--color-foreground)] sm:text-4xl">
             Get in Touch
           </h1>

@@ -20,7 +20,7 @@ export default function Home() {
         <motion.div
           initial="initial"
           animate="animate"
-          className="flex flex-col gap-8"
+          className="flex flex-col items-center gap-8 text-center"
         >
           {/* Primary headline */}
           <motion.h1

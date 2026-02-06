@@ -3,6 +3,28 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// In-memory rate limiter — resets on server restart
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const DAILY_LIMIT = 8;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + DAY_MS });
+    return false;
+  }
+
+  if (entry.count >= DAILY_LIMIT) {
+    return true;
+  }
+
+  entry.count += 1;
+  return false;
+}
+
 interface ContactFormData {
   name: string;
   email: string;
@@ -23,6 +45,22 @@ function validatePhone(phone: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limit by IP
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        {
+          success: false,
+          errors: ["Too many messages today. Please try again tomorrow."],
+        },
+        { status: 429 }
+      );
+    }
+
     const body: ContactFormData = await request.json();
     const { name, email, phone, message } = body;
 

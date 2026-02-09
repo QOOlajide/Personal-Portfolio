@@ -64,7 +64,7 @@ const projects: Project[] = [
       "Redis",
       "Docker",
     ],
-    githubUrl: "https://github.com/QOOlajide/eid-community-platform",
+    githubUrl: "https://github.com/QOOlajide/Eid-Al-Fitr-2026",
     demoUrl: undefined,
   },
   {
@@ -74,7 +74,7 @@ const projects: Project[] = [
     description:
       "A Model Context Protocol (MCP) server that integrates Google Calendar, Notion, and Slack to enable cross-tool orchestration. Reduces context switching and saves users 1–2 hours weekly.",
     techStack: ["Python", "FastAPI"],
-    githubUrl: "https://github.com/QOOlajide/mcp-schedule-meeting-server",
+    githubUrl: "https://github.com/QOOlajide/headstarter-mcp-project",
     demoUrl: undefined,
   },
   {
@@ -84,7 +84,7 @@ const projects: Project[] = [
     description:
       "A visual tool for designing and deploying agentic workflows. Enables users to orchestrate multi-step AI agent pipelines without writing complex code.",
     techStack: ["TypeScript", "React", "Next.js", "Tailwind CSS"],
-    githubUrl: "https://github.com/QOOlajide/agent-workflow-builder",
+    githubUrl: "https://github.com/QOOlajide/Agent-Workflow",
     demoUrl: "https://agent-workflow-omega.vercel.app/",
   },
   {
@@ -94,7 +94,7 @@ const projects: Project[] = [
     description:
       "A terminal-based AI coding assistant that helps developers write, debug, and refactor code directly from the command line. Designed for efficiency and minimal context switching.",
     techStack: ["Bash", "TypeScript", "Gemini API"],
-    githubUrl: "https://github.com/QOOlajide/terminal-coding-agent",
+    githubUrl: "https://github.com/QOOlajide/Terminal-Coding-Agent",
     demoUrl: undefined,
   },
   {
@@ -104,7 +104,7 @@ const projects: Project[] = [
     description:
       "An AI-powered customer support system built for Aven, featuring real-time chat and voice Q&A capabilities. Reduced customer support workload by 25%+ through intelligent query handling.",
     techStack: ["Next.js", "TypeScript", "Pinecone", "Vercel"],
-    githubUrl: "https://github.com/QOOlajide/ai-customer-support-agent",
+    githubUrl: "https://github.com/QOOlajide/headstarter-AvenCustomerSupport",
     demoUrl: undefined,
   },
 ];

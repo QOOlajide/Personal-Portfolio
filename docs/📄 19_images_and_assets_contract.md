@@ -89,11 +89,13 @@ Naming convention:
 - Match project slug
 
 Required files:
-- eid-community-platform.png
-- mcp-schedule-meeting-server.png
-- agent-workflow-builder.png
-- terminal-coding-agent.png
-- ai-customer-support-voice-agent.png
+- eid-al-fitr-2026.jpg
+- headstarter-mcp-project.jpg
+- agent-workflow.jpg
+- terminal-coding-agent.jpg
+- headstarter-aven-customer-support.jpg
+- personalized-x-recommendation-algorithm.jpg
+- autonomous-ml-agent.jpg
 
 Rules:
 - Thumbnails are decorative, not explanatory.

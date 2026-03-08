@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { FiGithub, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { SiVercel } from "react-icons/si";
@@ -49,9 +49,10 @@ const statusConfig: Record<
   },
 };
 
-const projects: Project[] = [
+/* ─── AI Projects ─── */
+const aiProjects: Project[] = [
   {
-    slug: "eid-community-platform",
+    slug: "eid-al-fitr-2026",
     title: "Eid Community Platform",
     status: "active-development",
     description:
@@ -68,7 +69,7 @@ const projects: Project[] = [
     demoUrl: undefined,
   },
   {
-    slug: "mcp-schedule-meeting-server",
+    slug: "headstarter-mcp-project",
     title: "MCP Schedule Meeting Server",
     status: "active-development",
     description:
@@ -78,7 +79,7 @@ const projects: Project[] = [
     demoUrl: undefined,
   },
   {
-    slug: "agent-workflow-builder",
+    slug: "agent-workflow",
     title: "Agent Workflow Builder",
     status: "shipped",
     description:
@@ -98,7 +99,7 @@ const projects: Project[] = [
     demoUrl: undefined,
   },
   {
-    slug: "ai-customer-support-voice-agent",
+    slug: "headstarter-aven-customer-support",
     title: "AI Customer Support Voice Agent",
     status: "completed",
     description:
@@ -109,6 +110,31 @@ const projects: Project[] = [
   },
 ];
 
+/* ─── ML Projects ─── */
+const mlProjects: Project[] = [
+  {
+    slug: "personalized-x-recommendation-algorithm",
+    title: "Personalized X Recommendation Algorithm",
+    status: "completed",
+    description:
+      "A personalized reimplementation of the X recommendation algorithm exposing the full ranking pipeline as a tunable, inspectable engine. Built a resilient ML-adjacent LLM pipeline for ~2,000 sequential Gemini API calls using exponential-backoff retries, 1.5s rate-limit delays, and O(1) duplicate detection — delivering zero data corruption across 500 persona generations and 4 content types.",
+    techStack: ["Python", "Gemini API", "Machine Learning"],
+    githubUrl: undefined,
+    demoUrl: undefined,
+  },
+  {
+    slug: "autonomous-ml-agent",
+    title: "Autonomous ML Agent",
+    status: "completed",
+    description:
+      "An autonomous machine learning agent that ingests tabular datasets, automatically cleans and preprocesses data, trains models, and optimizes them for target metrics like accuracy, precision, or recall. The entire pipeline is orchestrated by LLMs that generate and modify code, select algorithms, and iteratively refine the pipeline until the best-performing model is achieved.",
+    techStack: ["Python", "LLMs", "Scikit-learn", "Pandas"],
+    githubUrl: undefined,
+    demoUrl: undefined,
+  },
+];
+
+/* ─── Project Card ─── */
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const config = statusConfig[project.status];
 
@@ -197,18 +223,27 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function ProjectsPage() {
+/* ─── Reusable Carousel ─── */
+function ProjectCarousel({
+  projects,
+  label,
+  delayOffset = 0,
+}: {
+  projects: Project[];
+  label: string;
+  delayOffset?: number;
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [hoveredBtn, setHoveredBtn] = useState<"left" | "right" | null>(null);
 
-  const checkScroll = () => {
+  const checkScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 0);
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
-  };
+  }, []);
 
   useEffect(() => {
     checkScroll();
@@ -221,7 +256,7 @@ export default function ProjectsPage() {
       if (el) el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
-  }, []);
+  }, [checkScroll]);
 
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
@@ -234,6 +269,79 @@ export default function ProjectsPage() {
   };
 
   return (
+    <motion.div
+      variants={fadeUp}
+      transition={{ ...transition, delay: delayOffset }}
+      className="relative"
+    >
+      {/* Section heading + navigation arrows */}
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-lg font-semibold tracking-tight text-[var(--color-foreground)] sm:text-xl">
+          {label}
+        </h2>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => scroll("left")}
+            onMouseEnter={() => setHoveredBtn("left")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            disabled={!canScrollLeft}
+            aria-label={`Previous ${label}`}
+            className="flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 text-sm transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-30"
+            style={{
+              backgroundColor:
+                hoveredBtn === "left" && canScrollLeft
+                  ? "#ffffff"
+                  : "var(--color-background-secondary)",
+              color:
+                hoveredBtn === "left" && canScrollLeft
+                  ? "#000000"
+                  : "var(--color-foreground)",
+            }}
+          >
+            <FiChevronLeft className="h-4 w-4" />
+            <span>Prev</span>
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            onMouseEnter={() => setHoveredBtn("right")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            disabled={!canScrollRight}
+            aria-label={`Next ${label}`}
+            className="flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 text-sm transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-30"
+            style={{
+              backgroundColor:
+                hoveredBtn === "right" && canScrollRight
+                  ? "#ffffff"
+                  : "var(--color-background-secondary)",
+              color:
+                hoveredBtn === "right" && canScrollRight
+                  ? "#000000"
+                  : "var(--color-foreground)",
+            }}
+          >
+            <span>Next</span>
+            <FiChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Scrollable row */}
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {projects.map((project, index) => (
+          <ProjectCard key={project.slug} project={project} index={index} />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── Page ─── */
+export default function ProjectsPage() {
+  return (
     <div className="mx-auto max-w-5xl px-6 py-24">
       <motion.div
         initial="initial"
@@ -241,7 +349,11 @@ export default function ProjectsPage() {
         className="flex flex-col gap-12"
       >
         {/* Page header */}
-        <motion.div variants={fadeUp} transition={transition} className="text-center">
+        <motion.div
+          variants={fadeUp}
+          transition={transition}
+          className="text-center"
+        >
           <h1 className="text-3xl font-medium tracking-tight text-[var(--color-foreground)] sm:text-4xl">
             Projects
           </h1>
@@ -250,52 +362,19 @@ export default function ProjectsPage() {
           </p>
         </motion.div>
 
-        {/* Carousel */}
-        <motion.div variants={fadeUp} transition={{ ...transition, delay: 0.1 }} className="relative">
-          {/* Navigation arrows */}
-          <div className="mb-4 flex items-center justify-end gap-2">
-            <button
-              onClick={() => scroll("left")}
-              onMouseEnter={() => setHoveredBtn("left")}
-              onMouseLeave={() => setHoveredBtn(null)}
-              disabled={!canScrollLeft}
-              aria-label="Previous projects"
-              className="flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 text-sm transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-30"
-              style={{
-                backgroundColor: hoveredBtn === "left" && canScrollLeft ? "#ffffff" : "var(--color-background-secondary)",
-                color: hoveredBtn === "left" && canScrollLeft ? "#000000" : "var(--color-foreground)",
-              }}
-            >
-              <FiChevronLeft className="h-4 w-4" />
-              <span>Prev</span>
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              onMouseEnter={() => setHoveredBtn("right")}
-              onMouseLeave={() => setHoveredBtn(null)}
-              disabled={!canScrollRight}
-              aria-label="Next projects"
-              className="flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 text-sm transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-30"
-              style={{
-                backgroundColor: hoveredBtn === "right" && canScrollRight ? "#ffffff" : "var(--color-background-secondary)",
-                color: hoveredBtn === "right" && canScrollRight ? "#000000" : "var(--color-foreground)",
-              }}
-            >
-              <span>Next</span>
-              <FiChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+        {/* AI Projects carousel */}
+        <ProjectCarousel
+          projects={aiProjects}
+          label="AI Projects"
+          delayOffset={0.1}
+        />
 
-          {/* Scrollable row */}
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {projects.map((project, index) => (
-              <ProjectCard key={project.slug} project={project} index={index} />
-            ))}
-          </div>
-        </motion.div>
+        {/* ML Projects carousel */}
+        <ProjectCarousel
+          projects={mlProjects}
+          label="ML Projects"
+          delayOffset={0.2}
+        />
       </motion.div>
     </div>
   );

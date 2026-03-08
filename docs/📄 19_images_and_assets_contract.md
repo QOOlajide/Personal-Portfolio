@@ -94,7 +94,7 @@ Required files:
 - agent-workflow.jpg
 - terminal-coding-agent.jpg
 - headstarter-aven-customer-support.jpg
-- personalized-x-recommendation-algorithm.jpg
+- personalized-x-recommendation.jpg
 - autonomous-ml-agent.jpg
 
 Rules:

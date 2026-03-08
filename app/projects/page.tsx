@@ -113,24 +113,24 @@ const aiProjects: Project[] = [
 /* ─── ML Projects ─── */
 const mlProjects: Project[] = [
   {
-    slug: "personalized-x-recommendation-algorithm",
+    slug: "personalized-x-recommendation",
     title: "Personalized X Recommendation Algorithm",
     status: "completed",
     description:
       "A personalized reimplementation of the X recommendation algorithm exposing the full ranking pipeline as a tunable, inspectable engine. Built a resilient ML-adjacent LLM pipeline for ~2,000 sequential Gemini API calls using exponential-backoff retries, 1.5s rate-limit delays, and O(1) duplicate detection — delivering zero data corruption across 500 persona generations and 4 content types.",
-    techStack: ["Python", "Gemini API", "Machine Learning"],
-    githubUrl: undefined,
+    techStack: ["TypeScript", "Next.js", "Gemini API", "Machine Learning"],
+    githubUrl: "https://github.com/QOOlajide/Personalized-X-Recommendation",
     demoUrl: undefined,
   },
   {
     slug: "autonomous-ml-agent",
     title: "Autonomous ML Agent",
-    status: "completed",
+    status: "shipped",
     description:
       "An autonomous machine learning agent that ingests tabular datasets, automatically cleans and preprocesses data, trains models, and optimizes them for target metrics like accuracy, precision, or recall. The entire pipeline is orchestrated by LLMs that generate and modify code, select algorithms, and iteratively refine the pipeline until the best-performing model is achieved.",
     techStack: ["Python", "LLMs", "Scikit-learn", "Pandas"],
-    githubUrl: undefined,
-    demoUrl: undefined,
+    githubUrl: "https://github.com/QOOlajide/Autonomous-ML-Agent",
+    demoUrl: "https://autonomous-ml-agent-vg4sonjdug3fgmhxeyzfzu.streamlit.app/",
   },
 ];
 

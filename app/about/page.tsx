@@ -73,29 +73,29 @@ export default function AboutPage() {
             className="flex flex-col gap-6 text-base leading-relaxed text-[var(--color-foreground-muted)] sm:text-lg"
           >
             <p>
-              I'm Quamdeen Olajide, a full-stack software engineer focused on
-              building production-ready systems, not toy apps. I specialize in
-              agentic workflows and solving real-world problems through
-              thoughtful, end-to-end engineering.
+              I&apos;m Quamdeen Olajide, a full‑stack software engineer focused
+              on building production‑ready systems, not toy apps. I specialize
+              in agentic workflows and solving real‑world problems through
+              thoughtful, end‑to‑end engineering.
             </p>
 
             <p>
-              I'm also a Muslim, and that identity meaningfully shapes how I
-              build. Before I code, I ask: who benefits from this, how can it be
-              used, and is it permissible and beneficial in the long run? That
-              reflection drives both my technical and product decisions.
+              Before I ship anything, I think carefully about who it serves, how
+              it might be used, and its long‑term impact. That mindset guides
+              both my technical choices and product decisions.
             </p>
 
             <p>
-              Some of my work is built specifically for the Muslim community,
-              such as an Eid community platform. Other projects—like my AI
-              customer support agent and terminal-based coding tools—are
-              designed to benefit both Muslims and non-Muslims alike.
+              Some of my recent work includes a Personalized X recommendation
+              System, AI customer support agent, and web platforms built for
+              real users and real constraints. Across all of these projects, I
+              emphasize reliability, clarity, and deliberate, impact‑driven
+              execution.
             </p>
 
             <p>
-              Every project I ship is deliberately considered, impact-driven,
-              and built with responsibility in mind. Feel free to explore my{" "}
+              Every project I ship is intentionally designed, tested, and built
+              with responsibility in mind. Feel free to explore my{" "}
               <Link
                 href="/projects"
                 className="text-[var(--color-accent)] transition-colors duration-[var(--duration-hover)] hover:text-[var(--color-accent-hover)]"
@@ -109,7 +109,7 @@ export default function AboutPage() {
               >
                 reach out
               </Link>{" "}
-              if you'd like to collaborate or have an inquiry.
+              if you&apos;d like to collaborate or have an inquiry.
             </p>
           </motion.div>
 

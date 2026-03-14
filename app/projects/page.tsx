@@ -52,23 +52,6 @@ const statusConfig: Record<
 /* ─── AI Projects ─── */
 const aiProjects: Project[] = [
   {
-    slug: "eid-al-fitr-2026",
-    title: "Eid Community Platform",
-    status: "active-development",
-    description:
-      "A full-stack community platform built for the Muslim community, featuring event coordination, community engagement tools, and an AI-powered Islamic Q&A feature using RAG to provide trusted, cited answers.",
-    techStack: [
-      "React",
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "Redis",
-      "Docker",
-    ],
-    githubUrl: "https://github.com/QOOlajide/Eid-Al-Fitr-2026",
-    demoUrl: undefined,
-  },
-  {
     slug: "headstarter-mcp-project",
     title: "MCP Schedule Meeting Server",
     status: "active-development",
@@ -106,6 +89,23 @@ const aiProjects: Project[] = [
       "An AI-powered customer support system built for Aven, featuring real-time chat and voice Q&A capabilities. Reduced customer support workload by 25%+ through intelligent query handling.",
     techStack: ["Next.js", "TypeScript", "Pinecone", "Vercel"],
     githubUrl: "https://github.com/QOOlajide/headstarter-AvenCustomerSupport",
+    demoUrl: undefined,
+  },
+  {
+    slug: "eid-al-fitr-2026",
+    title: "Eid Community Platform",
+    status: "active-development",
+    description:
+      "A full-stack community platform built for the Muslim community, featuring event coordination, community engagement tools, and an AI-powered Islamic Q&A feature using RAG to provide trusted, cited answers.",
+    techStack: [
+      "React",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+    ],
+    githubUrl: "https://github.com/QOOlajide/Eid-Al-Fitr-2026",
     demoUrl: undefined,
   },
 ];

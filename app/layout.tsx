@@ -41,7 +41,9 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-screen flex-col bg-[var(--color-background)] text-[var(--color-foreground)]">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main id="page-top" className="flex-1 scroll-mt-16">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

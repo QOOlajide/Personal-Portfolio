@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { FiSend, FiCheck, FiAlertCircle } from "react-icons/fi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { ScrollNavigationCue } from "@/components/layout/scroll-navigation-cue";
 
 const fadeUp = {
   initial: { opacity: 0, y: 8 },
@@ -111,7 +112,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-24">
+    <div id="page-content" className="mx-auto max-w-5xl px-6 py-24">
       <motion.div
         initial="initial"
         animate="animate"
@@ -337,6 +338,11 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </motion.div>
+
+      <ScrollNavigationCue
+        scrollDownTargetId="contact-main"
+        contentAnchorId="page-content"
+      />
     </div>
   );
 }

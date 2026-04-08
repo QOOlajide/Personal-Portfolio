@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { FiExternalLink } from "react-icons/fi";
+import { ScrollNavigationCue } from "@/components/layout/scroll-navigation-cue";
 
 const fadeUp = {
   initial: { opacity: 0, y: 8 },
@@ -222,6 +223,8 @@ export default function AboutPage() {
           </div>
         </section>
       </motion.div>
+
+      <ScrollNavigationCue scrollDownTargetId="experience" side="center" />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
+import { ScrollNavigationCue } from "@/components/layout/scroll-navigation-cue";
 
 const fadeUp = {
   initial: { opacity: 0, y: 8 },
@@ -26,7 +27,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="flex min-h-[calc(100vh-4rem)] items-center">
+      <section className="relative flex min-h-[calc(100vh-4rem)] items-center">
         <div className="mx-auto max-w-5xl px-6 py-24">
           <motion.div
             initial="initial"
@@ -97,10 +98,19 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
+
+        <ScrollNavigationCue
+          scrollDownTargetId="affiliations"
+          side="center"
+          pinToHero
+        />
       </section>
 
       {/* Affiliations Carousel */}
-      <section className="overflow-hidden border-t border-[var(--color-border)] py-16">
+      <section
+        id="affiliations"
+        className="scroll-mt-16 overflow-hidden border-t border-[var(--color-border)] py-16"
+      >
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}

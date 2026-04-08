@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { FiGithub, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { SiVercel } from "react-icons/si";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
+import { ScrollNavigationCue } from "@/components/layout/scroll-navigation-cue";
 
 const fadeUp = {
   initial: { opacity: 0, y: 8 },
@@ -342,7 +343,7 @@ function ProjectCarousel({
 /* ─── Page ─── */
 export default function ProjectsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-24">
+    <div id="page-content" className="mx-auto max-w-5xl px-6 py-24">
       <motion.div
         initial="initial"
         animate="animate"
@@ -362,20 +363,30 @@ export default function ProjectsPage() {
           </p>
         </motion.div>
 
-        {/* AI Projects carousel */}
-        <ProjectCarousel
-          projects={aiProjects}
-          label="AI Projects"
-          delayOffset={0.1}
-        />
+        <div
+          id="projects-catalog"
+          className="flex scroll-mt-16 flex-col gap-12"
+        >
+          {/* AI Projects carousel */}
+          <ProjectCarousel
+            projects={aiProjects}
+            label="AI Projects"
+            delayOffset={0.1}
+          />
 
-        {/* ML Projects carousel */}
-        <ProjectCarousel
-          projects={mlProjects}
-          label="ML Projects"
-          delayOffset={0.2}
-        />
+          {/* ML Projects carousel */}
+          <ProjectCarousel
+            projects={mlProjects}
+            label="ML Projects"
+            delayOffset={0.2}
+          />
+        </div>
       </motion.div>
+
+      <ScrollNavigationCue
+        scrollDownTargetId="projects-catalog"
+        contentAnchorId="page-content"
+      />
     </div>
   );
 }

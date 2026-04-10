@@ -143,7 +143,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     <motion.article
       variants={fadeUp}
       transition={{ ...transition, delay: 0.1 + index * 0.1 }}
-      className="group flex w-[320px] shrink-0 flex-col overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-background-secondary)] transition-all duration-[var(--duration-hover)] hover:border-[var(--color-border-hover)] hover:shadow-lg hover:shadow-black/5"
+      className="group flex w-[min(20rem,calc((100%_-_3rem)/3))] shrink-0 flex-col overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-background-secondary)] transition-all duration-[var(--duration-hover)] hover:border-[var(--color-border-hover)] hover:shadow-lg hover:shadow-black/5"
     >
       {/* Thumbnail */}
       <div className="relative h-40 w-full overflow-hidden bg-[var(--color-background-tertiary)]">
@@ -259,14 +259,40 @@ function ProjectCarousel({
     };
   }, [checkScroll]);
 
+  /** Snap to exact pixel positions; smooth scroll often leaves subpixel scrollLeft. */
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScrollEnd = () => {
+      const max = Math.max(0, el.scrollWidth - el.clientWidth);
+      if (el.scrollLeft < 1) el.scrollLeft = 0;
+      else if (max > 0 && Math.abs(el.scrollLeft - max) < 1) el.scrollLeft = max;
+    };
+    el.addEventListener("scrollend", onScrollEnd);
+    return () => el.removeEventListener("scrollend", onScrollEnd);
+  }, []);
+
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const scrollAmount = 340;
-    el.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
+    const first = el.firstElementChild as HTMLElement | null;
+    const gap = parseFloat(getComputedStyle(el).gap || "0") || 0;
+    const cardW = first?.offsetWidth ?? 320;
+    const step = cardW + gap;
+    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+    const x = el.scrollLeft;
+
+    if (direction === "left") {
+      if (x <= step) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollTo({ left: x - step, behavior: "smooth" });
+      }
+    } else if (x + step >= maxScroll - 0.5) {
+      el.scrollTo({ left: maxScroll, behavior: "smooth" });
+    } else {
+      el.scrollTo({ left: x + step, behavior: "smooth" });
+    }
   };
 
   return (
@@ -330,7 +356,7 @@ function ProjectCarousel({
       {/* Scrollable row */}
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-6 overflow-x-auto px-2 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {projects.map((project, index) => (
           <ProjectCard key={project.slug} project={project} index={index} />

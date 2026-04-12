@@ -107,7 +107,7 @@ const aiProjects: Project[] = [
       "Docker",
     ],
     githubUrl: "https://github.com/QOOlajide/Eid-Al-Fitr-2026",
-    demoUrl: undefined,
+    demoUrl: "https://eid-al-fitr-2026-alpha.vercel.app/",
   },
 ];
 
@@ -116,12 +116,12 @@ const mlProjects: Project[] = [
   {
     slug: "personalized-x-recommendation",
     title: "Personalized X Recommendation Algorithm",
-    status: "completed",
+    status: "shipped",
     description:
       "A personalized reimplementation of the X recommendation algorithm exposing the full ranking pipeline as a tunable, inspectable engine. Built a resilient ML-adjacent LLM pipeline for ~2,000 sequential Gemini API calls using exponential-backoff retries, 1.5s rate-limit delays, and O(1) duplicate detection — delivering zero data corruption across 500 persona generations and 4 content types.",
     techStack: ["TypeScript", "Next.js", "Gemini API", "Machine Learning"],
     githubUrl: "https://github.com/QOOlajide/Personalized-X-Recommendation",
-    demoUrl: undefined,
+    demoUrl: "https://personalized-x-recommendation.vercel.app/",
   },
   {
     slug: "autonomous-ml-agent",

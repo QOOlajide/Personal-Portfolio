@@ -1,0 +1,5 @@
+{
+  "endpoint": "https://personal-portfolio-pearl-alpha-92.vercel.app",
+  "secret": "replace-with-SYNC_SECRET",
+  "roots": ["/Users/quamdeenolajide/Github"]
+}

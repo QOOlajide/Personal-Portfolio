@@ -46,6 +46,7 @@ Allowed:
 - Minimal, intentional motion
 - Simple backend logic for contact form
 - Clean UI with strong hierarchy
+- Live project cards from public GitHub (webhook graph + Redis overlay). See docs/20_live_project_cards_graph.md
 
 Disallowed:
 - Feature creep
@@ -54,6 +55,7 @@ Disallowed:
 - Dashboards
 - Excessive animations
 - “Just because it’s cool” additions
+- User accounts, admin UI, or rewriting curated seed cards automatically
 
 ---------------------------------------
 AI / Cursor Usage Rules

@@ -15,6 +15,7 @@ function summarize(state: GraphState) {
     repo: `${state.owner}/${state.repo}`,
     outcome: state.outcome,
     skipReason: state.skipReason,
+    failedAt: state.failedAt,
     slug: state.card?.slug ?? state.existing?.slug,
     section: state.section,
   };

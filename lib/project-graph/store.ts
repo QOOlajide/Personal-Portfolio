@@ -53,13 +53,18 @@ export async function findCardByRepo(
 }
 
 export async function saveAutoCard(card: AutoProject): Promise<void> {
+  // 1. Same Upstash REST client the page uses. Null = env vars missing in THIS runtime
+  //    (Vercel Production vs Preview vs local). /projects can still show seed cards.
   const redis = getRedis();
   if (!redis) {
     throw new Error("Redis is not configured");
   }
 
+  // 2. The card body: title, copy, Unsplash imageUrl, section, photographer, …
   await redis.set(autoCardKey(card.slug), card);
+  // 3. Membership set so listAutoCards() can find every auto slug.
   await redis.sadd(AUTO_INDEX, card.slug);
+  // 4. Lookup so the next push to QOOlajide/voice-agent is status-only, not a rewrite.
   await redis.hset(REPO_INDEX, {
     [card.githubRepo.toLowerCase()]: card.slug,
   });

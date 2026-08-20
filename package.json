@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "sync:local": "node tools/local-sync/sync.mjs",
-    "verify:env": "node tools/verify-env.mjs"
+    "verify:env": "node tools/verify-env.mjs",
+    "verify:webhooks": "node tools/verify-webhooks.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "4.1.18",

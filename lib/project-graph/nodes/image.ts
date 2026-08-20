@@ -1,3 +1,4 @@
+import { graphFail } from "../fail";
 import { completeJson } from "../llm";
 import type { GraphState, PhotographerCredit } from "../types";
 
@@ -30,6 +31,14 @@ export async function sourceUnsplashPhoto(state: GraphState): Promise<GraphState
     return { ...state, skipReason: "empty", outcome: "skipped" };
   }
 
+  if (!process.env.UNSPLASH_ACCESS_KEY && !process.env.PEXELS_API_KEY) {
+    return graphFail(
+      state,
+      "image",
+      "UNSPLASH_ACCESS_KEY and PEXELS_API_KEY both missing on this process",
+    );
+  }
+
   const json = await completeJson({
     system: SYSTEM,
     user: [
@@ -50,7 +59,11 @@ export async function sourceUnsplashPhoto(state: GraphState): Promise<GraphState
     (await searchUnsplash(queries)) ?? (await searchPexels(queries));
 
   if (!photo) {
-    return { ...state, skipReason: "generate-failed", outcome: "skipped" };
+    return graphFail(
+      state,
+      "image",
+      "Unsplash/Pexels returned no landscape photo (check UNSPLASH_ACCESS_KEY is the Access Key, not the Secret; PEXELS_API_KEY is optional fallback)",
+    );
   }
 
   return { ...state, photo };
@@ -86,8 +99,10 @@ async function searchUnsplash(
       cache: "no-store",
     });
 
-    if (response.status === 403 || response.status === 429) {
-      console.warn("[project-graph] Unsplash rate limited, falling back to Pexels");
+    if (response.status === 401 || response.status === 403 || response.status === 429) {
+      console.warn(
+        `[project-graph] Unsplash ${response.status}, falling back to Pexels`,
+      );
       return null;
     }
     if (!response.ok) continue;

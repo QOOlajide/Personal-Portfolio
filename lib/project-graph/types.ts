@@ -117,6 +117,8 @@ export type GraphState = {
   pushedAt?: string;
   snapshot?: RepoSnapshot;
   skipReason?: string;
+  /** Which node set generate-failed (gather, classify, copy, image, persist). */
+  failedAt?: string;
   outcome?: GraphOutcome;
   existing?: { kind: "seed" | "graph"; slug: string };
   gathered?: GatheredRepo;

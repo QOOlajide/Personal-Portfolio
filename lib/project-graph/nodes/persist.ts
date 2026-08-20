@@ -1,18 +1,20 @@
-import { GITHUB_OWNER } from "../types";
-import type { AutoProject, GraphState } from "../types";
+import { errorDetail, graphFail } from "../fail";
 import { slugifyRepoName } from "../slug";
 import { saveAutoCard, setLastPushedAt } from "../store";
+import { GITHUB_OWNER } from "../types";
+import type { AutoProject, GraphState } from "../types";
 
 /**
- * Node 6 — persistAndPublish
- * Write the card JSON to Redis. The projects page reads it on the next request.
- * No git commit. No Vercel rebuild wait.
+ * Node 6 — this is what actually "publishes" a backfilled (or webhook) card.
+ * It does not git-push. It writes JSON to Redis. /projects reads Redis next request.
  */
 export async function persistAndPublish(state: GraphState): Promise<GraphState> {
+  // 1. Refuse to save a half-built card (missing copy, photo, or section).
   if (!state.gathered || !state.copy || !state.photo || !state.section) {
-    return { ...state, skipReason: "generate-failed", outcome: "skipped" };
+    return graphFail(state, "persist", "missing gathered, copy, photo, or section");
   }
 
+  // 2. Build the JSON document the page will render (slug, Unsplash URL, demo, chips).
   const now = new Date().toISOString();
   const slug = slugifyRepoName(state.repo);
   const card: AutoProject = {
@@ -33,13 +35,15 @@ export async function persistAndPublish(state: GraphState): Promise<GraphState> 
     lastGeneratedAt: now,
   };
 
+  // 3. Write to Redis. If UPSTASH_* is missing on this process, saveAutoCard throws.
   try {
     await saveAutoCard(card);
     await setLastPushedAt(slug, state.pushedAt ?? state.gathered.pushedAt ?? now);
   } catch (error) {
     console.error("[project-graph] persist failed", error);
-    return { ...state, skipReason: "generate-failed", outcome: "skipped" };
+    return graphFail(state, "persist", errorDetail(error));
   }
 
+  // 4. Tell the orchestrator this walk created a new auto card (not a seed rewrite).
   return { ...state, card, outcome: "created" };
 }

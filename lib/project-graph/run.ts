@@ -4,6 +4,7 @@ import { classifySection } from "./nodes/classify";
 import { writeCardCopy } from "./nodes/copy";
 import { sourceUnsplashPhoto } from "./nodes/image";
 import { persistAndPublish } from "./nodes/persist";
+import { errorDetail, graphFail } from "./fail";
 import type { GraphState, IngestInput } from "./types";
 
 /**
@@ -28,30 +29,38 @@ export async function runProjectGraph(input: IngestInput): Promise<GraphState> {
     return state;
   }
 
-  state = await gatherRepo(state);
+  try {
+    state = await gatherRepo(state);
+  } catch (error) {
+    return logSkip(graphFail(state, "gather", errorDetail(error)));
+  }
   if (state.outcome === "skipped") return logSkip(state);
 
   try {
     state = await classifySection(state);
-    if (state.outcome === "skipped") return logSkip(state);
+  } catch (error) {
+    return logSkip(graphFail(state, "classify", errorDetail(error)));
+  }
+  if (state.outcome === "skipped") return logSkip(state);
 
+  try {
     state = await writeCardCopy(state);
-    if (state.outcome === "skipped") return logSkip(state);
+  } catch (error) {
+    return logSkip(graphFail(state, "copy", errorDetail(error)));
+  }
+  if (state.outcome === "skipped") return logSkip(state);
 
+  try {
     state = await sourceUnsplashPhoto(state);
-    if (state.outcome === "skipped") return logSkip(state);
+  } catch (error) {
+    return logSkip(graphFail(state, "image", errorDetail(error)));
+  }
+  if (state.outcome === "skipped") return logSkip(state);
 
+  try {
     state = await persistAndPublish(state);
   } catch (error) {
-    console.error(
-      `[project-graph] failed repo=${input.owner}/${input.repo}`,
-      error,
-    );
-    return logSkip({
-      ...state,
-      skipReason: "generate-failed",
-      outcome: "skipped",
-    });
+    return logSkip(graphFail(state, "persist", errorDetail(error)));
   }
 
   if (state.outcome === "skipped") return logSkip(state);

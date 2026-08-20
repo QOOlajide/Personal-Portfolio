@@ -1,4 +1,5 @@
 import { filterToAllowlist, TECH_ALLOWLIST } from "@/data/tech-allowlist";
+import { graphFail } from "../fail";
 import { demoUrlFromHomepage } from "../github";
 import { completeJson } from "../llm";
 import type { GraphState } from "../types";
@@ -57,7 +58,7 @@ export async function writeCardCopy(state: GraphState): Promise<GraphState> {
   );
 
   if (!title || !description) {
-    return { ...state, skipReason: "generate-failed", outcome: "skipped" };
+    return graphFail(state, "copy", "empty title or description");
   }
 
   return {

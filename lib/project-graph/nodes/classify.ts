@@ -1,3 +1,4 @@
+import { graphFail } from "../fail";
 import { completeJson } from "../llm";
 import type { GraphState, ProjectSection } from "../types";
 
@@ -44,11 +45,7 @@ export async function classifySection(state: GraphState): Promise<GraphState> {
 
   const section = json.section;
   if (typeof section !== "string" || !SECTIONS.includes(section as ProjectSection)) {
-    return {
-      ...state,
-      skipReason: "generate-failed",
-      outcome: "skipped",
-    };
+    return graphFail(state, "classify", `invalid section ${JSON.stringify(section)}`);
   }
 
   return { ...state, section: section as ProjectSection };

@@ -8,6 +8,12 @@ import { GITHUB_OWNER } from "@/lib/project-graph/types";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/**
+ * GitHub HMAC door. Not the DAG. Must be installed on product repos
+ * (or an account GitHub App). A hook only on Personal-Portfolio never
+ * creates cards — ingest skips that repo.
+ */
+
 type PushPayload = {
   repository?: {
     name: string;

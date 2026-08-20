@@ -33,4 +33,4 @@ Tone:
 - Intentional
 - Impact-focused
 
-This list defines V1 scope.
+This list defines the **curated seed cards**. Live auto-cards from qualifying public repos are added by the graph in `docs/20_live_project_cards_graph.md` and must not rewrite these seven.

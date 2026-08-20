@@ -121,6 +121,17 @@ npm run build
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
+## Live project cards
+
+New qualifying public repos under `QOOlajide` get a card via a small graph (`lib/project-graph/`). Seed cards stay curated. Setup: [docs/20_live_project_cards_graph.md](docs/20_live_project_cards_graph.md).
+
+Local “building now” heartbeat:
+
+```bash
+cp tools/local-sync/deen-sync.example.json ~/.deen-sync.json
+npm run sync:local
+```
+
 ## Next Steps
 
 - [x] ~~Hero section content~~
